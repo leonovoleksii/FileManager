@@ -12,7 +12,6 @@ public class SidePanel extends JPanel {
     private String activeDirectory;
     private JTextField activeDirectoryField;
     private ProtocolCreator protocolCreator;
-    private String selectedFile;
 
     public SidePanel(MainPanel mainPanel, String side) {
         protocolCreator = ProtocolCreator.getInstance();
@@ -45,23 +44,25 @@ public class SidePanel extends JPanel {
         gridBagLayout.setConstraints(splitPane, constraints);
         add(splitPane);
 
-        directoryList.addKeyListener(new SidePanelKeyListener(mainPanel, this, directoryList));
-
         directoryList.addMouseListener(new MouseListener() {
             @Override
             public void mouseClicked(MouseEvent mouseEvent) {
                 fileList.setSelectedValue(null, false);
-                mainPanel.refreshSelectedFiles(side);
+                String selectedValue = directoryList.getSelectedValue();
+
+                if (selectedValue.equals("..")) {
+                    File f = new File(activeDirectory);
+                    selectedValue = f.getParent();
+                } else {
+                    selectedValue = activeDirectory + (!activeDirectory.equals("/") ? "/" : "")
+                                + selectedValue;
+                }
+
+                mainPanel.refreshSelectedFile(side, selectedValue);
+
                 if (mouseEvent.getClickCount() == 2) {
-                    String selectedValue = directoryList.getSelectedValue();
-                    if (selectedValue.equals("..")) {
-                        File f = new File(activeDirectory);
-                        activeDirectory = f.getParent();
-                    } else {
-                        if (!activeDirectory.equals("/")) activeDirectory += "/";
-                        activeDirectory += selectedValue;
-                    }
-                    protocolCreator.appendToProtocol("moved to " + activeDirectory, ProtocolCreator.TRANSITION);
+                    protocolCreator.appendToProtocol("Moved to " + selectedValue, ProtocolCreator.TRANSITION);
+                    activeDirectory = selectedValue;
                     refresh();
                 }
             }
@@ -91,7 +92,7 @@ public class SidePanel extends JPanel {
             @Override
             public void mouseClicked(MouseEvent mouseEvent) {
                 directoryList.setSelectedValue(null, false);
-                mainPanel.refreshSelectedFiles(side);
+                mainPanel.refreshSelectedFile(side, activeDirectory + "/" + fileList.getSelectedValue());
             }
 
             @Override
@@ -114,8 +115,6 @@ public class SidePanel extends JPanel {
 
             }
         });
-
-        addKeyListener(new SidePanelKeyListener(mainPanel, this, directoryList));
 
         refresh();
     }
@@ -146,14 +145,6 @@ public class SidePanel extends JPanel {
         typeArr = new String[1];
         this.fileList.setListData(files.toArray(typeArr));
         System.out.println("REFRESHED");
-    }
-
-    public String getSelectedFile() {
-        if (fileList.getSelectedValue() != null)
-            return activeDirectory + "/" + fileList.getSelectedValue();
-        if (directoryList.getSelectedValue() != null)
-            return activeDirectory + "/" + fileList.getSelectedValue();
-        return null;
     }
 
     public String getActiveDirectory() {

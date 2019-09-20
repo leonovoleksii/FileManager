@@ -27,7 +27,7 @@ public class CommandsExecutor {
         addCommand(KeyEvent.VK_F7, new CreateFileCommand());
     }
 
-    public boolean processCommand(Integer keyCode, SidePanel sidePanel, String activeFile) {
+/*    public boolean processCommand(Integer keyCode, SidePanel sidePanel, String activeFile) {
         System.out.println(keyCode);
         if (!keyCodeToCommand.containsKey(keyCode)) return false;
         if (activeFile == null) return false;
@@ -36,7 +36,7 @@ public class CommandsExecutor {
         command.execute(mainPanel, sidePanel.getActiveDirectory(), activeFile);
         // protocolCreator.appendToProtocol(command.execute(sidePanel, file));
         return true;
-    }
+    }*/
 
     public ArrayList<String> getCommands() {
         ArrayList<String> commands = new ArrayList<>();

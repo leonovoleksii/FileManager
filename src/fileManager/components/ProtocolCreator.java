@@ -26,7 +26,7 @@ public class ProtocolCreator {
             INSTANCE = new ProtocolCreator();
             try {
                 INSTANCE.protocolWriter = new FileWriter(new File(System.getProperty("user.home"),
-                        "log.out"));
+                        "log.out"), true);
             } catch (IOException e){
                 System.err.println("Unable to create ProcolCreator");
                 return null;

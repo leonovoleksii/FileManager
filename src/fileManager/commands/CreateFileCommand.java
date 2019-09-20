@@ -23,7 +23,7 @@ public class CreateFileCommand implements Command {
         File file = new File(currentDirectory + "/" + fileName);
         try {
             if (file.createNewFile()) {
-                protocolCreator.appendToProtocol("Created file " + fileName + " in " + currentDirectory,
+                protocolCreator.appendToProtocol("Created " + fileName + " in " + currentDirectory,
                         ProtocolCreator.CHANGES);
             } else {
                 protocolCreator.appendToProtocol("Unable to create " + fileName + " in " + currentDirectory,
@@ -34,7 +34,7 @@ public class CreateFileCommand implements Command {
                     ProtocolCreator.ERROR);
         }
     }
-    public void execute(MainPanel mainPanel, String currentDirectory, String activeFile) {
+    public void execute(MainPanel mainPanel) {
         JDialog frame = new JDialog(FileManagerFrame.getInstance());
         frame.setSize(300, 200);
         frame.setLocationRelativeTo(null);
@@ -45,7 +45,7 @@ public class CreateFileCommand implements Command {
         submitButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent actionEvent) {
-                createFile(dirNameTextField, currentDirectory);
+                createFile(dirNameTextField, mainPanel.getActiveDirectory());
                 mainPanel.refreshSidePanels();
                 frame.setVisible(false);
             }
@@ -59,7 +59,7 @@ public class CreateFileCommand implements Command {
             @Override
             public void keyPressed(KeyEvent keyEvent) {
                 if (keyEvent.getKeyCode() == KeyEvent.VK_ENTER) {
-                    createFile(dirNameTextField, currentDirectory);
+                    createFile(dirNameTextField, mainPanel.getActiveDirectory());
                     mainPanel.refreshSidePanels();
                     frame.setVisible(false);
                 }

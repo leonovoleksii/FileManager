@@ -28,7 +28,7 @@ public class CreateDirectoryCommand implements Command {
                     ProtocolCreator.ERROR);
         }
     }
-    public void execute(MainPanel mainPanel, String currentDirectory, String activeFile) {
+    public void execute(MainPanel mainPanel) {
         JDialog frame = new JDialog(FileManagerFrame.getInstance());
         frame.setSize(300, 200);
         frame.setLocationRelativeTo(null);
@@ -39,7 +39,7 @@ public class CreateDirectoryCommand implements Command {
         submitButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent actionEvent) {
-                createDir(dirNameTextField, currentDirectory);
+                createDir(dirNameTextField, mainPanel.getActiveDirectory());
                 mainPanel.refreshSidePanels();
                 frame.setVisible(false);
             }
@@ -53,7 +53,7 @@ public class CreateDirectoryCommand implements Command {
             @Override
             public void keyPressed(KeyEvent keyEvent) {
                 if (keyEvent.getKeyCode() == KeyEvent.VK_ENTER) {
-                    createDir(dirNameTextField, currentDirectory);
+                    createDir(dirNameTextField, mainPanel.getActiveDirectory());
                     mainPanel.refreshSidePanels();
                     frame.setVisible(false);
                 }
@@ -70,6 +70,6 @@ public class CreateDirectoryCommand implements Command {
     }
 
     public String toString() {
-        return "Mkdir";
+        return "Create Directory";
     }
 }

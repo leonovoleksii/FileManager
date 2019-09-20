@@ -15,14 +15,41 @@ public class RenameCommand implements Command {
     private JTextField textField;
     private JButton submitButton;
     private ProtocolCreator protocolCreator = ProtocolCreator.getInstance();
+    private MainPanel mainPanel;
 
     private String rename(String oldName, String newName) {
+        System.out.println(oldName + " " + newName);
         File file = new File(oldName);
         file.renameTo(new File(newName));
         return "Renamed " + oldName + " to " + newName;
     }
 
-    public void execute(MainPanel mainPanel, String currentDirectory, String activeFile) {
+    private void showError(String message) {
+        System.out.println("Error");
+        JDialog errorDialog = new JDialog(FileManagerFrame.getInstance(), "ERROR");
+        errorDialog.setLayout(new FlowLayout());
+        JButton okButton = new JButton("OK");
+        okButton.addActionListener((ActionEvent e) -> {
+            errorDialog.setVisible(false);
+        });
+        errorDialog.add(new JLabel(message));
+        errorDialog.add(okButton);
+        errorDialog.setSize(300, 200);
+        errorDialog.setLocationRelativeTo(mainPanel);
+        errorDialog.setVisible(true);
+        protocolCreator.appendToProtocol(message, ProtocolCreator.ERROR);
+    }
+
+    public void execute(MainPanel mainPanel) {
+        this.mainPanel = mainPanel;
+        if (mainPanel.getActiveDirectory().equals(mainPanel.getSelectedFile())) {
+            showError("You have to select file!");
+            return;
+        }                    // mainPanel.refreshSelectedFile(side, null);
+        if (mainPanel.getActiveDirectory().equals(mainPanel.getSelectedFile())) {
+            showError("Cannot operate on \"..\"!");
+            return;
+        }
         JDialog frame = new JDialog(FileManagerFrame.getInstance());
         frame.setSize(300, 200);
         frame.setLocationRelativeTo(null);
@@ -35,10 +62,11 @@ public class RenameCommand implements Command {
         submitButton.addActionListener(
             (ActionEvent actionEvent) -> {
                protocolCreator.appendToProtocol(
-                       rename(currentDirectory + "/" + activeFile,
-                               currentDirectory + "/" + textField.getText()),
+                       rename(mainPanel.getSelectedFile(),
+                               mainPanel.getActiveDirectory() + "/" + textField.getText()),
                        ProtocolCreator.CHANGES);
                mainPanel.refreshSidePanels();
+               mainPanel.refreshSelectedFile("same", mainPanel.getActiveDirectory());
                frame.setVisible(false);
             }
         );
@@ -52,11 +80,12 @@ public class RenameCommand implements Command {
             public void keyPressed(KeyEvent keyEvent) {
                 if (keyEvent.getKeyCode() == keyEvent.VK_ENTER) {
                     protocolCreator.appendToProtocol(
-                            rename(currentDirectory + "/" + activeFile,
-                                    currentDirectory + "/" + textField.getText()),
+                            rename(mainPanel.getSelectedFile(),
+                                    mainPanel.getActiveDirectory() + "/" + textField.getText()),
                             ProtocolCreator.CHANGES);
                     mainPanel.refreshSidePanels();
                     frame.setVisible(false);
+                    mainPanel.refreshSelectedFile("same", mainPanel.getActiveDirectory());
                 }
             }
 

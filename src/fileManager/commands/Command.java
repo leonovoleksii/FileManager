@@ -8,5 +8,5 @@ import java.io.File;
 public interface Command {
     // returns the result of command in format
     // dd-MM-yyyy HH:mm:ss MESSAGE
-    void execute(MainPanel mainPanel, String currentDirectory, String activeFile);
+    void execute(MainPanel mainPanel);
 }
