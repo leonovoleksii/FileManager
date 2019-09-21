@@ -1,0 +1,4 @@
+Manifest-Version: 1.0
+Main-Class: fileManager.FileManagerFrame
+Class-Path: ~/java/FileManager/out/production/FileManager/fileManager
+
