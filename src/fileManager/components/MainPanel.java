@@ -7,12 +7,10 @@ public class MainPanel extends JPanel {
     private static final boolean LEFT = true, RIGHT = false;
     private SidePanel leftPanel, rightPanel;
     private HintPanel hintPanel;
-    private CommandsExecutor commandsExecutor;
     private String selectedFile = System.getProperty("user.home");
     private boolean side = LEFT;
 
     private void init() {
-        commandsExecutor = new CommandsExecutor(this);
         leftPanel = new SidePanel(this, "left");
         rightPanel = new SidePanel(this, "right");
         hintPanel = new HintPanel(this);
@@ -45,9 +43,6 @@ public class MainPanel extends JPanel {
     public MainPanel() {
         init();
     }
-/*    public void processCommand(int keyCode, SidePanel sidePanel, String activeFile) {
-        commandsExecutor.processCommand(keyCode, sidePanel, activeFile);
-    }*/
 
     public void refreshSelectedFile(String s, String file) {
         selectedFile = file;
@@ -74,13 +69,4 @@ public class MainPanel extends JPanel {
         return (side == RIGHT ? rightPanel.getActiveDirectory() : leftPanel.getActiveDirectory());
     }
 
-/*    public static void main(String[] args) {
-        JFrame frame = new JFrame();
-        frame.setMenuBar(new MenuBar());
-        frame.setContentPane(new MainPanel());
-        frame.setSize(1000, 500);
-        frame.setLocationRelativeTo(null);
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.setVisible(true);
-    }*/
 }
