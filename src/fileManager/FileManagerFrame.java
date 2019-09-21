@@ -3,6 +3,7 @@ package fileManager;
 import fileManager.components.MainPanel;
 
 import javax.swing.*;
+import java.awt.*;
 
 public class FileManagerFrame extends JFrame implements Runnable {
     private static final FileManagerFrame INSTANCE = new FileManagerFrame();
@@ -13,7 +14,7 @@ public class FileManagerFrame extends JFrame implements Runnable {
 
     public void run() {
         setContentPane(new MainPanel());
-        setSize(1000, 500);
+        setMinimumSize(new Dimension(1000, 500));
         setLocationRelativeTo(null);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setVisible(true);

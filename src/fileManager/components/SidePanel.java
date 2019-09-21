@@ -2,16 +2,19 @@ package fileManager.components;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.io.File;
 import java.util.ArrayList;
+import java.util.regex.Pattern;
 
 public class SidePanel extends JPanel {
     private JList<String> directoryList, fileList;
     private String activeDirectory;
     private JTextField activeDirectoryField;
     private ProtocolCreator protocolCreator;
+    private JComboBox<String> comboBox;
 
     public SidePanel(MainPanel mainPanel, String side) {
         protocolCreator = ProtocolCreator.getInstance();
@@ -44,6 +47,18 @@ public class SidePanel extends JPanel {
         gridBagLayout.setConstraints(splitPane, constraints);
         add(splitPane);
 
+        comboBox = new JComboBox<>(new String[]{".*", ".*\\.txt", ".*\\.html"});
+        comboBox.addActionListener((ActionEvent e) -> {
+            refresh();
+            protocolCreator.appendToProtocol("Selected file pattern \"" + comboBox.getSelectedItem().toString() +
+                    "\"", ProtocolCreator.CHANGES);
+        });
+        constraints.gridy = 2;
+        constraints.gridx = 0;
+        constraints.weighty = 0.005;
+        gridBagLayout.setConstraints(comboBox, constraints);
+        add(comboBox);
+
         directoryList.addMouseListener(new MouseListener() {
             @Override
             public void mouseClicked(MouseEvent mouseEvent) {
@@ -60,7 +75,7 @@ public class SidePanel extends JPanel {
 
                 mainPanel.refreshSelectedFile(side, selectedValue);
 
-                if (mouseEvent.getClickCount() == 2) {
+                if (mouseEvent.getClickCount() >= 2) {
                     protocolCreator.appendToProtocol("Moved to " + selectedValue, ProtocolCreator.TRANSITION);
                     activeDirectory = selectedValue;
                     refresh();
@@ -128,10 +143,13 @@ public class SidePanel extends JPanel {
         File dir = new File(activeDirectory);
         activeDirectoryField.setText(activeDirectory);
         ArrayList<String> dirs = new ArrayList<>(), files = new ArrayList<>();
+
+        Pattern pattern = Pattern.compile(comboBox.getSelectedItem().toString());
+
         if (!activeDirectory.equals("/")) dirs.add("..");
         for (File f : dir.listFiles()) {
             if (f.getName().startsWith(".") || !f.canRead()) continue;
-            if (f.isFile()) {
+            if (f.isFile() && pattern.matcher(f.getName()).matches()) {
                 files.add(f.getName());
             } else if (f.isDirectory()){
                 dirs.add(f.getName());
