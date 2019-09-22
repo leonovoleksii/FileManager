@@ -30,6 +30,7 @@ public class CreateDirectoryCommand implements Command {
         if (dirName != null) {
             createDir(dirName, mainPanel.getActiveDirectory());
             mainPanel.refreshSidePanels();
+            mainPanel.openDirectoryWithFile(mainPanel.getActiveDirectory() + "/" + dirName);
         }
     }
 

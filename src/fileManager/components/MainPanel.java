@@ -77,6 +77,7 @@ public class MainPanel extends JPanel {
         } else {
             leftPanel.openDirectoryWithFile(tempFile.getParentFile().getAbsolutePath(), file);
         }
+        selectedFile = file;
     }
 
 }

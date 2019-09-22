@@ -38,6 +38,7 @@ public class CreateFileCommand implements Command {
         if (fileName != null) {
             createFile(fileName, mainPanel.getActiveDirectory());
             mainPanel.refreshSidePanels();
+            mainPanel.openDirectoryWithFile(mainPanel.getActiveDirectory() + "/" + fileName);
         }
     }
 

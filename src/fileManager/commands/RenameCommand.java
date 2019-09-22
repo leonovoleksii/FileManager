@@ -47,6 +47,7 @@ public class RenameCommand implements Command {
                 ProtocolCreator.CHANGES);
         mainPanel.refreshSidePanels();
         mainPanel.refreshSelectedFile("same", mainPanel.getActiveDirectory());
+        mainPanel.openDirectoryWithFile(mainPanel.getActiveDirectory() + "/" + fileName);
     }
 
     public String toString() {
