@@ -7,14 +7,14 @@ import java.io.File;
 public class MainPanel extends JPanel {
     private static final boolean LEFT = true, RIGHT = false;
     private SidePanel leftPanel, rightPanel;
-    private HintPanel hintPanel;
+    private ControlPanel controlPanel;
     private String selectedFile = System.getProperty("user.home");
     private boolean side = LEFT;
 
     private void init() {
         leftPanel = new SidePanel(this, "left");
         rightPanel = new SidePanel(this, "right");
-        hintPanel = new HintPanel(this);
+        controlPanel = new ControlPanel(this);
 
         GridBagLayout gridBagLayout = new GridBagLayout();
         setLayout(gridBagLayout);
@@ -37,8 +37,8 @@ public class MainPanel extends JPanel {
         gridBagConstraints.gridy = 1;
         gridBagConstraints.weighty = 0.1;
         gridBagConstraints.gridwidth = 2;
-        gridBagLayout.setConstraints(hintPanel, gridBagConstraints);
-        add(hintPanel);
+        gridBagLayout.setConstraints(controlPanel, gridBagConstraints);
+        add(controlPanel);
     }
 
     public MainPanel() {

@@ -6,7 +6,7 @@ import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.util.ArrayList;
 
-public class HintPanel extends JPanel {
+public class ControlPanel extends JPanel {
     ArrayList<Class> commands = new ArrayList<>();
 
     private void addCommandButton(MainPanel mainPanel, Class<Command> command) {
@@ -18,12 +18,12 @@ public class HintPanel extends JPanel {
             });
             add(commandButton);
         } catch (Exception e) {
-            System.err.println("Unable to add JButton to HintPanel object");
+            System.err.println("Unable to add JButton to ControlPanel object");
         }
 
     }
 
-    public HintPanel(MainPanel mainPanel) {
+    public ControlPanel(MainPanel mainPanel) {
         commands.add(RenameCommand.class);
         commands.add(CreateFileCommand.class);
         commands.add(CreateDirectoryCommand.class);
