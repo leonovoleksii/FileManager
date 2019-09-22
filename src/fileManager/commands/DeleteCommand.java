@@ -5,25 +5,19 @@ import fileManager.components.ProtocolCreator;
 
 import javax.swing.*;
 import java.io.File;
-import java.io.IOException;
-import java.nio.file.FileSystem;
-import java.nio.file.FileSystems;
-import java.nio.file.Files;
 
 public class DeleteCommand implements Command {
     private ProtocolCreator protocolCreator = ProtocolCreator.getInstance();
 
     private boolean delete(String fileName) {
-        FileSystem fs = FileSystems.getDefault();
+        File file = new File(fileName);
 
-        try {
-            Files.delete(fs.getPath(fileName));
-        } catch (IOException e) {
-            System.out.println(e);
-            return false;
+        if (file.isDirectory()) {
+            for (File f : file.listFiles()) {
+                delete(f.getAbsolutePath());
+            }
         }
-
-        return true;
+        return file.delete();
     }
 
     public void execute(MainPanel mainPanel) {
