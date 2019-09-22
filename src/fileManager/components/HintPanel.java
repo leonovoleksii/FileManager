@@ -28,6 +28,7 @@ public class HintPanel extends JPanel {
         commands.add(CreateFileCommand.class);
         commands.add(CreateDirectoryCommand.class);
         commands.add(DeleteCommand.class);
+        commands.add(FindCommand.class);
 
 
         for (Class command : commands) {

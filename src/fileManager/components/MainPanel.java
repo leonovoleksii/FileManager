@@ -2,6 +2,7 @@ package fileManager.components;
 
 import javax.swing.*;
 import java.awt.*;
+import java.io.File;
 
 public class MainPanel extends JPanel {
     private static final boolean LEFT = true, RIGHT = false;
@@ -67,6 +68,15 @@ public class MainPanel extends JPanel {
 
     public String getActiveDirectory() {
         return (side == RIGHT ? rightPanel.getActiveDirectory() : leftPanel.getActiveDirectory());
+    }
+
+    public void openDirectoryWithFile(String file) {
+        File tempFile = new File(file);
+        if (side == RIGHT) {
+            rightPanel.openDirectoryWithFile(tempFile.getParentFile().getAbsolutePath(), file);
+        } else {
+            leftPanel.openDirectoryWithFile(tempFile.getParentFile().getAbsolutePath(), file);
+        }
     }
 
 }

@@ -168,4 +168,22 @@ public class SidePanel extends JPanel {
     public String getActiveDirectory() {
         return activeDirectory;
     }
+
+    public void openDirectoryWithFile(String directory, String file) {
+        activeDirectory = directory;
+        refresh();
+        File tempFile = new File(file);
+        for (int i = 0; i < directoryList.getModel().getSize(); i++) {
+            if (directoryList.getModel().getElementAt(i).equals(tempFile.getName())) {
+                directoryList.setSelectedIndex(i);
+                return;
+            }
+        }
+        for (int i = 0; i < fileList.getModel().getSize(); i++) {
+            if (fileList.getModel().getElementAt(i).equals(tempFile.getName())) {
+                fileList.setSelectedIndex(i);
+                return;
+            }
+        }
+    }
 }
