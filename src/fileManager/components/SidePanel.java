@@ -176,12 +176,14 @@ public class SidePanel extends JPanel {
         for (int i = 0; i < directoryList.getModel().getSize(); i++) {
             if (directoryList.getModel().getElementAt(i).equals(tempFile.getName())) {
                 directoryList.setSelectedIndex(i);
+                directoryList.ensureIndexIsVisible(i);
                 return;
             }
         }
         for (int i = 0; i < fileList.getModel().getSize(); i++) {
             if (fileList.getModel().getElementAt(i).equals(tempFile.getName())) {
                 fileList.setSelectedIndex(i);
+                directoryList.ensureIndexIsVisible(i);
                 return;
             }
         }
