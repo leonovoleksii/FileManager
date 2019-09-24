@@ -13,7 +13,7 @@ public class TextEditorFrame extends JFrame {
 
     private TextEditorFrame(String filename) {
         this.filename = filename;
-        setSize(500, 300);
+        setSize(1000, 500);
         setLocationRelativeTo(null);
         GridBagLayout gridBagLayout = new GridBagLayout();
         setLayout(gridBagLayout);
@@ -31,8 +31,9 @@ public class TextEditorFrame extends JFrame {
 
         JMenuBar menu = new JMenuBar();
         JMenu file = new JMenu("File");
-        gridBagLayout.setConstraints(menu, constraints);
+        JMenu edit = new JMenu("Edit");
         menu.add(file);
+        menu.add(edit);
         setJMenuBar(menu);
 
         JMenuItem saveItem = new JMenuItem("Save file");
@@ -70,7 +71,7 @@ public class TextEditorFrame extends JFrame {
 
             @Override
             public void mousePressed(MouseEvent mouseEvent) {
-                System.out.println(mouseEvent);
+                controller.simplify();
             }
 
             @Override
@@ -88,7 +89,7 @@ public class TextEditorFrame extends JFrame {
 
             }
         });
-        file.add(removeAttributes);
+        edit.add(removeAttributes);
 
         setTitle(filename);
         controller = new TextAreaController(textArea, filename);

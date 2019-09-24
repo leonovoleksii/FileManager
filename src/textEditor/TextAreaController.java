@@ -6,6 +6,8 @@ import java.io.*;
 public class TextAreaController {
     String filename;
     JTextArea textArea;
+    private HTMLSimplifier htmlSimplifier = new HTMLSimplifier();
+
     public TextAreaController(JTextArea textArea, String filename) {
         this.filename = filename;
         this.textArea = textArea;
@@ -33,7 +35,8 @@ public class TextAreaController {
         }
     }
 
-    public void removeAttributes() {
-
+    public void simplify() {
+        String newText = htmlSimplifier.simplify(textArea.getText());
+        textArea.setText(newText);
     }
 }

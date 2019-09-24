@@ -41,7 +41,7 @@ public class ProtocolCreator {
                     ". " + code + ". " + message + "\n");
             protocolWriter.flush();
         } catch (IOException e) {
-            System.err.println("Unable to append message to log.out");
+            System.out.println("Unable to append message to log.out");
         }
     }
 }

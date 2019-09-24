@@ -182,7 +182,6 @@ public class SidePanel extends JPanel {
         this.directoryList.setListData(dirs.toArray(typeArr));
         typeArr = new String[1];
         this.fileList.setListData(files.toArray(typeArr));
-        System.out.println("REFRESHED");
     }
 
     public String getActiveDirectory() {
