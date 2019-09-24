@@ -30,7 +30,7 @@ public class DeleteCommand implements Command {
             return;
         }
 
-        int res = JOptionPane.showConfirmDialog(mainPanel, "Are you sure?", "Deletion", JOptionPane.YES_NO_OPTION);
+        int res = JOptionPane.showConfirmDialog(mainPanel, "This command will delete the file you choosed forever. Are you sure?", "Deletion", JOptionPane.YES_NO_OPTION);
 
         if (res == 0 && !delete(mainPanel.getSelectedFile())) {
             protocolCreator.appendToProtocol("Unable to delete " + mainPanel.getSelectedFile(),

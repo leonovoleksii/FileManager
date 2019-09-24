@@ -1,10 +1,10 @@
 package fileManager.components;
 
+import textEditor.TextEditorFrame;
+
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
+import java.awt.event.*;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.regex.Pattern;
@@ -127,6 +127,26 @@ public class SidePanel extends JPanel {
 
             @Override
             public void mouseExited(MouseEvent mouseEvent) {
+
+            }
+        });
+
+        fileList.addKeyListener(new KeyListener() {
+            @Override
+            public void keyTyped(KeyEvent keyEvent) {
+
+            }
+
+            @Override
+            public void keyPressed(KeyEvent keyEvent) {
+                if (keyEvent.getKeyCode() == KeyEvent.VK_F3) {
+                    TextEditorFrame.newInstance(activeDirectory + "/" +
+                            fileList.getSelectedValue());
+                }
+            }
+
+            @Override
+            public void keyReleased(KeyEvent keyEvent) {
 
             }
         });
