@@ -36,29 +36,5 @@ public class ControlPanel extends JPanel {
         for (Class command : commands) {
             addCommandButton(mainPanel, command);
         }
-        /*JButton renameButton = new JButton("Rename");
-        renameButton.addActionListener((ActionEvent e) -> {
-            Command command = new RenameCommand();
-            command.execute(mainPanel);
-        });
-        add(renameButton);
-        JButton createFileButton = new JButton("Create File");
-        createFileButton.addActionListener((ActionEvent e) -> {
-            Command command = new CreateFileCommand();
-            command.execute(mainPanel);
-        });
-        add(createFileButton);
-        JButton createDirectoryButton = new JButton("Create Directory");
-        createDirectoryButton.addActionListener((ActionEvent e) -> {
-            Command command = new CreateDirectoryCommand();
-            command.execute(mainPanel);
-        });
-        add(createDirectoryButton);
-        JButton deleteButton = new JButton("Delete");
-        deleteButton.addActionListener((ActionEvent e) -> {
-            Command command = new DeleteCommand();
-            command.execute(mainPanel);
-        });
-        add(deleteButton);*/
     }
 }
