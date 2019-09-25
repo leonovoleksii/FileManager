@@ -59,6 +59,7 @@ public class SidePanel extends JPanel {
 
         directoryList.setFocusable(false);
         fileList.setFocusable(false);
+        comboBox.setFocusable(false);
 
         directoryList.addMouseListener(new MouseListener() {
             @Override
@@ -132,26 +133,6 @@ public class SidePanel extends JPanel {
             }
         });
 
-        /*fileList.addKeyListener(new KeyListener() {
-            @Override
-            public void keyTyped(KeyEvent keyEvent) {
-
-            }
-
-            @Override
-            public void keyPressed(KeyEvent keyEvent) {
-                if (keyEvent.getKeyCode() == KeyEvent.VK_F3) {
-                    TextEditorFrame.newInstance(activeDirectory + "/" +
-                            fileList.getSelectedValue());
-                }
-            }
-
-            @Override
-            public void keyReleased(KeyEvent keyEvent) {
-
-            }
-        });*/
-
         refresh();
     }
 
@@ -168,6 +149,8 @@ public class SidePanel extends JPanel {
         Pattern pattern = Pattern.compile(comboBox.getSelectedItem().toString());
 
         if (!activeDirectory.equals("/")) dirs.add("..");
+
+        if (dir.listFiles() != null)
         for (File f : dir.listFiles()) {
             if (f.getName().startsWith(".") || !f.canRead()) continue;
             if (f.isFile() && pattern.matcher(f.getName()).matches()) {
