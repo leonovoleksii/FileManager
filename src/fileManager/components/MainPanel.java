@@ -1,7 +1,11 @@
 package fileManager.components;
 
+import textEditor.TextEditorFrame;
+
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 import java.io.File;
 
 public class MainPanel extends JPanel {
@@ -39,6 +43,28 @@ public class MainPanel extends JPanel {
         gridBagConstraints.gridwidth = 2;
         gridBagLayout.setConstraints(controlPanel, gridBagConstraints);
         add(controlPanel);
+
+        setFocusable(true);
+        addKeyListener(new KeyListener() {
+            @Override
+            public void keyTyped(KeyEvent keyEvent) {
+
+            }
+
+            @Override
+            public void keyPressed(KeyEvent keyEvent) {
+                if (keyEvent.getKeyCode() == KeyEvent.VK_F3 && selectedFile != null) {
+                    File file = new File(selectedFile);
+                    if (!file.isDirectory())
+                        TextEditorFrame.newInstance(selectedFile);
+                }
+            }
+
+            @Override
+            public void keyReleased(KeyEvent keyEvent) {
+
+            }
+        });
     }
 
     public MainPanel() {

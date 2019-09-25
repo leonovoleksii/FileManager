@@ -1,7 +1,5 @@
 package fileManager.components;
 
-import textEditor.TextEditorFrame;
-
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
@@ -58,6 +56,9 @@ public class SidePanel extends JPanel {
         constraints.weighty = 0.005;
         gridBagLayout.setConstraints(comboBox, constraints);
         add(comboBox);
+
+        directoryList.setFocusable(false);
+        fileList.setFocusable(false);
 
         directoryList.addMouseListener(new MouseListener() {
             @Override
@@ -131,7 +132,7 @@ public class SidePanel extends JPanel {
             }
         });
 
-        fileList.addKeyListener(new KeyListener() {
+        /*fileList.addKeyListener(new KeyListener() {
             @Override
             public void keyTyped(KeyEvent keyEvent) {
 
@@ -149,7 +150,7 @@ public class SidePanel extends JPanel {
             public void keyReleased(KeyEvent keyEvent) {
 
             }
-        });
+        });*/
 
         refresh();
     }

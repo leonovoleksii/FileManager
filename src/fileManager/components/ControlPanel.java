@@ -16,6 +16,7 @@ public class ControlPanel extends JPanel {
             commandButton.addActionListener((ActionEvent e) -> {
                 commandInstance.execute(mainPanel);
             });
+            commandButton.setFocusable(false);
             add(commandButton);
         } catch (Exception e) {
             System.err.println("Unable to add JButton to ControlPanel object");
