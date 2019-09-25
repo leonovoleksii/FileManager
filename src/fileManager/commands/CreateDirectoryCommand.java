@@ -12,23 +12,24 @@ public class CreateDirectoryCommand implements Command {
     public CreateDirectoryCommand() {
         this.protocolCreator = ProtocolCreator.getInstance();
     }
-    private void createDir(String dirName, String currentDirectory) {
+    private boolean createDir(String dirName, String currentDirectory) {
         File file = new File(currentDirectory + "/" + dirName);
         if (file.mkdir()) {
             protocolCreator.appendToProtocol("Created " + dirName + " in " + currentDirectory,
                     ProtocolCreator.CHANGES);
+            return true;
         } else {
             String message = "Unable to create \"" + dirName + "\" in " + currentDirectory;
             protocolCreator.appendToProtocol(message, ProtocolCreator.ERROR);
             JOptionPane.showMessageDialog(mainPanel, message, "Error", JOptionPane.ERROR_MESSAGE);
+            return false;
         }
     }
     public void execute(MainPanel mainPanel) {
         this.mainPanel = mainPanel;
         String dirName = JOptionPane.showInputDialog(mainPanel, "Choose the filename", "Filename",
                 JOptionPane.INFORMATION_MESSAGE);
-        if (dirName != null) {
-            createDir(dirName, mainPanel.getActiveDirectory());
+        if (dirName != null && createDir(dirName, mainPanel.getActiveDirectory())) {
             mainPanel.refreshSidePanels();
             mainPanel.openDirectoryWithFile(mainPanel.getActiveDirectory() + "/" + dirName);
         }

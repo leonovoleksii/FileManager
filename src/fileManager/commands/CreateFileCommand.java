@@ -14,29 +14,31 @@ public class CreateFileCommand implements Command {
     public CreateFileCommand() {
         this.protocolCreator = ProtocolCreator.getInstance();
     }
-    private void createFile(String filename, String currentDirectory) {
+    private boolean createFile(String filename, String currentDirectory) {
         File file = new File(currentDirectory + "/" + filename);
         try {
             if (file.createNewFile()) {
                 protocolCreator.appendToProtocol("Created " + filename + " in " + currentDirectory,
                         ProtocolCreator.CHANGES);
+                return true;
             } else {
                 String message = "Unable to create \"" + filename + "\" in " + currentDirectory;
                 protocolCreator.appendToProtocol(message, ProtocolCreator.ERROR);
                 JOptionPane.showMessageDialog(mainPanel, message, "Error", JOptionPane.ERROR_MESSAGE);
+                return false;
             }
         } catch (IOException e) {
             String message = "Unable to create \"" + filename + "\" in " + currentDirectory;
             protocolCreator.appendToProtocol(message, ProtocolCreator.ERROR);
             JOptionPane.showMessageDialog(mainPanel, message, "Error", JOptionPane.ERROR_MESSAGE);
+            return false;
         }
     }
     public void execute(MainPanel mainPanel) {
         this.mainPanel = mainPanel;
         String fileName = JOptionPane.showInputDialog(mainPanel, "Choose the filename", "Filename",
                 JOptionPane.INFORMATION_MESSAGE);
-        if (fileName != null) {
-            createFile(fileName, mainPanel.getActiveDirectory());
+        if (fileName != null && createFile(fileName, mainPanel.getActiveDirectory())) {
             mainPanel.refreshSidePanels();
             mainPanel.openDirectoryWithFile(mainPanel.getActiveDirectory() + "/" + fileName);
         }
