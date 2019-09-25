@@ -50,6 +50,10 @@ public class FindCommand implements Command {
         dialog.setVisible(true);
 
         String filename = JOptionPane.showInputDialog("Choose which file you want to find");
+        if (filename == null) {
+            dialog.setVisible(false);
+            return;
+        }
         findFile(System.getProperty("user.home"), filename);
 
 
