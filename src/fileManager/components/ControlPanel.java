@@ -7,14 +7,13 @@ import java.awt.event.ActionEvent;
 import java.util.ArrayList;
 
 public class ControlPanel extends JPanel {
-    ArrayList<Class> commands = new ArrayList<>();
+    ArrayList<Command> commands = new ArrayList<>();
 
-    private void addCommandButton(MainPanel mainPanel, Class<Command> command) {
+    private void addCommandButton(MainPanel mainPanel, Command command) {
         try {
-            Command commandInstance = command.newInstance();
-            JButton commandButton = new JButton(commandInstance.toString());
+            JButton commandButton = new JButton(command.toString());
             commandButton.addActionListener((ActionEvent e) -> {
-                commandInstance.execute(mainPanel);
+                command.execute(mainPanel);
             });
             commandButton.setFocusable(false);
             add(commandButton);
@@ -25,15 +24,15 @@ public class ControlPanel extends JPanel {
     }
 
     public ControlPanel(MainPanel mainPanel) {
-        commands.add(RenameCommand.class);
-        commands.add(CreateFileCommand.class);
-        commands.add(CreateDirectoryCommand.class);
-        commands.add(DeleteCommand.class);
-        commands.add(FindCommand.class);
-        commands.add(MoveCommand.class);
+        commands.add(new RenameCommand());
+        commands.add(new CreateFileCommand());
+        commands.add(new CreateDirectoryCommand());
+        commands.add(new DeleteCommand());
+        commands.add(new FindCommand());
+        commands.add(new MoveCommand());
 
 
-        for (Class command : commands) {
+        for (Command command : commands) {
             addCommandButton(mainPanel, command);
         }
     }
