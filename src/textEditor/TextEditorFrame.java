@@ -5,13 +5,12 @@ import java.awt.*;
 import java.awt.event.*;
 import java.util.TreeMap;
 
-public class TextEditorFrame extends JFrame {
-    private String filename;
+public class TextEditorFrame extends JFrame implements ActionListener {
     private JTextArea textArea;
     private TextAreaController controller;
+    private JMenuItem saveItem, removeAttributes, replace;
 
     private TextEditorFrame(String filename) {
-        this.filename = filename;
         setSize(1000, 500);
         setLocationRelativeTo(null);
         GridBagLayout gridBagLayout = new GridBagLayout();
@@ -35,60 +34,18 @@ public class TextEditorFrame extends JFrame {
         menu.add(edit);
         setJMenuBar(menu);
 
-        JMenuItem saveItem = new JMenuItem("Save file");
-        saveItem.addMouseListener(new MouseListener() {
-            @Override
-            public void mouseClicked(MouseEvent mouseEvent) {
-            }
-
-            @Override
-            public void mousePressed(MouseEvent mouseEvent) {
-                controller.save();
-            }
-
-            @Override
-            public void mouseReleased(MouseEvent mouseEvent) {
-            }
-
-            @Override
-            public void mouseEntered(MouseEvent mouseEvent) {
-            }
-
-            @Override
-            public void mouseExited(MouseEvent mouseEvent) {
-
-            }
-        });
+        saveItem = new JMenuItem("Save file");
+        saveItem.addActionListener(this);
         file.add(saveItem);
 
-        JMenuItem removeAttributes = new JMenuItem("Remove html attributes");
-        removeAttributes.addMouseListener(new MouseListener() {
-            @Override
-            public void mouseClicked(MouseEvent mouseEvent) {
-
-            }
-
-            @Override
-            public void mousePressed(MouseEvent mouseEvent) {
-                controller.simplify();
-            }
-
-            @Override
-            public void mouseReleased(MouseEvent mouseEvent) {
-
-            }
-
-            @Override
-            public void mouseEntered(MouseEvent mouseEvent) {
-
-            }
-
-            @Override
-            public void mouseExited(MouseEvent mouseEvent) {
-
-            }
-        });
+        removeAttributes = new JMenuItem("Remove html attributes");
+        removeAttributes.addActionListener(this);
         edit.add(removeAttributes);
+
+        replace = new JMenuItem("Replace");
+        replace.addActionListener(this);
+        edit.add(replace);
+
 
         setTitle(filename);
         controller = new TextAreaController(textArea, filename);
@@ -142,6 +99,21 @@ public class TextEditorFrame extends JFrame {
 
         setVisible(true);
         requestFocus();
+    }
+
+    public void actionPerformed(ActionEvent actionEvent) {
+        if (actionEvent.getSource() == saveItem) {
+            controller.save();
+        } else if (actionEvent.getSource() == removeAttributes) {
+            controller.simplify();
+        } else if (actionEvent.getSource() == replace) {
+            JTextField oldSequence = new JTextField(), newSequence = new JTextField();
+            Object[] message = {"Replace", oldSequence, "To", newSequence};
+            int option = JOptionPane.showConfirmDialog(this, message, "Replace", JOptionPane.OK_CANCEL_OPTION);
+            if (option == JOptionPane.OK_OPTION) {
+                controller.replace(oldSequence.getText(), newSequence.getText());
+            }
+        }
     }
 
     private static TreeMap<String, TextEditorFrame> filenameToFrame = new TreeMap<>();

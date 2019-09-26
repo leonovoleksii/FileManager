@@ -23,7 +23,6 @@ public class TextAreaController {
         }
     }
     public void save() {
-        String text = textArea.getText();
         File file = new File(filename);
         if (file.exists() && file.delete()) {
             try (BufferedWriter fileWriter = new BufferedWriter(new FileWriter(file))){
@@ -38,5 +37,11 @@ public class TextAreaController {
     public void simplify() {
         String newText = htmlSimplifier.simplify(textArea.getText());
         textArea.setText(newText);
+    }
+
+    public void replace(String oldSequence, String newSequence) {
+        String text = textArea.getText();
+        text = text.replaceAll(oldSequence, newSequence);
+        textArea.setText(text);
     }
 }
