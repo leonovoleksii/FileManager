@@ -55,8 +55,9 @@ public class MainPanel extends JPanel {
             public void keyPressed(KeyEvent keyEvent) {
                 if (keyEvent.getKeyCode() == KeyEvent.VK_F3 && selectedFile != null) {
                     File file = new File(selectedFile);
-                    if (!file.isDirectory())
+                    if (!file.isDirectory()) {
                         TextEditorFrame.newInstance(selectedFile);
+                    }
                 }
             }
 
@@ -103,6 +104,7 @@ public class MainPanel extends JPanel {
         } else {
             leftPanel.openDirectoryWithFile(tempFile.getParentFile().getAbsolutePath(), file);
         }
+        ProtocolCreator.getInstance().appendToProtocol("Moved to " + tempFile.getAbsolutePath(), ProtocolCreator.TRANSITION);
         selectedFile = file;
     }
 
