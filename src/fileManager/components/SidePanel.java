@@ -77,7 +77,7 @@ public class SidePanel extends JPanel {
 
                 mainPanel.refreshSelectedFile(side, selectedValue);
 
-                if (mouseEvent.getClickCount() >= 2) {
+                if (mouseEvent.getClickCount() == 2) {
                     protocolCreator.appendToProtocol("Moved to " + selectedValue, ProtocolCreator.TRANSITION);
                     activeDirectory = selectedValue;
                     refresh();

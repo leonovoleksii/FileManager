@@ -12,6 +12,11 @@ public class RenameCommand implements Command {
 
     private String rename(String oldName, String newName) {
         File file = new File(oldName);
+        File newFile = new File(newName);
+        if (newFile.exists()) {
+            JOptionPane.showMessageDialog(mainPanel, newFile.getAbsolutePath() + " already exists", "Error", JOptionPane.ERROR_MESSAGE);
+            return newFile.getAbsolutePath() + " already exists";
+        }
         file.renameTo(new File(newName));
         return "Renamed " + oldName + " to " + newName;
     }
