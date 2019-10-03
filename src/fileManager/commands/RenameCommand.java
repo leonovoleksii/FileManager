@@ -11,7 +11,6 @@ public class RenameCommand implements Command {
     private MainPanel mainPanel;
 
     private String rename(String oldName, String newName) {
-        System.out.println(oldName + " " + newName);
         File file = new File(oldName);
         file.renameTo(new File(newName));
         return "Renamed " + oldName + " to " + newName;

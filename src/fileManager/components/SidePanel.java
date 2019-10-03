@@ -14,7 +14,7 @@ public class SidePanel extends JPanel {
     private ProtocolCreator protocolCreator;
     private JComboBox<String> comboBox;
 
-    public SidePanel(MainPanel mainPanel, String side) {
+    private void initialize(MainPanel mainPanel, String side) {
         protocolCreator = ProtocolCreator.getInstance();
 
         activeDirectory = System.getProperty("user.home");
@@ -72,7 +72,7 @@ public class SidePanel extends JPanel {
                     selectedValue = f.getParent();
                 } else {
                     selectedValue = activeDirectory + (!activeDirectory.equals("/") ? "/" : "")
-                                + selectedValue;
+                            + selectedValue;
                 }
 
                 mainPanel.refreshSelectedFile(side, selectedValue);
@@ -132,7 +132,10 @@ public class SidePanel extends JPanel {
 
             }
         });
+    }
 
+    public SidePanel(MainPanel mainPanel, String side) {
+        initialize(mainPanel, side);
         refresh();
     }
 

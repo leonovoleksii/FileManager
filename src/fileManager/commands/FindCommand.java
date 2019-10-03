@@ -18,7 +18,6 @@ public class FindCommand implements Command {
         File file = new File(currentDir);
         if (file.listFiles() != null)
             for (File f : file.listFiles()) {
-                System.out.println(f.getName());
                 if (f.getName().equals(name)) {
                     model.addElement(f.getAbsolutePath());
                     list.updateUI();

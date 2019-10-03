@@ -81,7 +81,6 @@ public class MainPanel extends JPanel {
             leftPanel.refreshSelectedValues();
             side = RIGHT;
         }
-        System.out.println(selectedFile + " " + side);
     }
 
     public void refreshSidePanels() {
