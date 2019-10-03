@@ -1,12 +1,13 @@
 package textEditor;
 
 import javax.swing.*;
+import javax.swing.text.JTextComponent;
 import java.awt.*;
 import java.awt.event.*;
 import java.util.TreeMap;
 
 public class TextEditorFrame extends JFrame implements ActionListener {
-    private JTextArea textArea;
+    private JTextComponent textComponent;
     private TextAreaController controller;
     private JMenuItem saveItem, removeAttributes, replace, capitalize, help;
     private String oldVersionOfFile;
@@ -23,8 +24,8 @@ public class TextEditorFrame extends JFrame implements ActionListener {
         constraints.weighty = 1;
         constraints.gridx = 0;
         constraints.gridy = 0;
-        textArea = new JTextArea();
-        JScrollPane scrollPane = new JScrollPane(textArea);
+        textComponent = new JEditorPane();
+        JScrollPane scrollPane = new JScrollPane(textComponent);
         gridBagLayout.setConstraints(scrollPane, constraints);
         add(scrollPane);
 
@@ -53,15 +54,15 @@ public class TextEditorFrame extends JFrame implements ActionListener {
         capitalize.addActionListener(this);
         edit.add(capitalize);
 
-        help = new JMenuItem("Help");
+        help = new JMenuItem("About");
         help.addActionListener(this);
         helpMenu.add(help);
 
 
         setTitle(filename);
-        controller = new TextAreaController(textArea, filename);
+        controller = new TextAreaController(textComponent, filename);
         controller.readFile();
-        oldVersionOfFile = textArea.getText();
+        oldVersionOfFile = textComponent.getText();
 
         setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
 
@@ -73,7 +74,7 @@ public class TextEditorFrame extends JFrame implements ActionListener {
 
             @Override
             public void windowClosing(WindowEvent windowEvent) {
-                if (oldVersionOfFile.equals(textArea.getText())) {
+                if (oldVersionOfFile.equals(textComponent.getText())) {
                     windowEvent.getComponent().setVisible(false);
                     return;
                 }
@@ -120,6 +121,7 @@ public class TextEditorFrame extends JFrame implements ActionListener {
     public void actionPerformed(ActionEvent actionEvent) {
         if (actionEvent.getSource() == saveItem) {
             controller.save();
+            oldVersionOfFile = textComponent.getText();
         } else if (actionEvent.getSource() == removeAttributes) {
             controller.simplify();
         } else if (actionEvent.getSource() == replace) {
@@ -130,7 +132,7 @@ public class TextEditorFrame extends JFrame implements ActionListener {
                 controller.replace(oldSequence.getText(), newSequence.getText());
             }
         } else if (actionEvent.getSource() == capitalize) {
-            controller.capitalize(textArea.getText());
+            controller.capitalize(textComponent.getText());
         } else if (actionEvent.getSource() == help) {
             JTextArea helpArea = new JTextArea();
             helpArea.setText("asdfasdfadfg");

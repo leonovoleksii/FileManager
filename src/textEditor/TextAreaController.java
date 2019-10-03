@@ -1,24 +1,27 @@
 package textEditor;
 
-import javax.swing.*;
+import javax.swing.text.JTextComponent;
 import java.io.*;
 
 public class TextAreaController {
     String filename;
-    JTextArea textArea;
+    JTextComponent textArea;
     private HTMLSimplifier htmlSimplifier = new HTMLSimplifier();
     private Capitalizer capitalizer = new Capitalizer();
 
-    public TextAreaController(JTextArea textArea, String filename) {
+    public TextAreaController(JTextComponent textArea, String filename) {
         this.filename = filename;
         this.textArea = textArea;
     }
     public void readFile() {
         String line;
         try (BufferedReader fileReader = new BufferedReader(new FileReader(new File(filename)))){
+            StringBuilder sb = new StringBuilder();
             while ((line = fileReader.readLine()) != null) {
-                textArea.append(line + "\n");
+                sb.append(line);
+                sb.append("\n");
             }
+            textArea.setText(sb.toString());
         } catch (IOException e) {
             System.err.println("Unable to read file " + filename);
         }
