@@ -7,6 +7,7 @@ public class TextAreaController {
     String filename;
     JTextArea textArea;
     private HTMLSimplifier htmlSimplifier = new HTMLSimplifier();
+    private Capitalizer capitalizer = new Capitalizer();
 
     public TextAreaController(JTextArea textArea, String filename) {
         this.filename = filename;
@@ -43,5 +44,9 @@ public class TextAreaController {
         String text = textArea.getText();
         text = text.replaceAll(oldSequence, newSequence);
         textArea.setText(text);
+    }
+
+    public void capitalize(String s) {
+        textArea.setText(capitalizer.capitalize(s));
     }
 }

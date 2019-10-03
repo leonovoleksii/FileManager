@@ -8,7 +8,7 @@ import java.util.TreeMap;
 public class TextEditorFrame extends JFrame implements ActionListener {
     private JTextArea textArea;
     private TextAreaController controller;
-    private JMenuItem saveItem, removeAttributes, replace;
+    private JMenuItem saveItem, removeAttributes, replace, capitalize;
 
     private TextEditorFrame(String filename) {
         setSize(1000, 500);
@@ -46,6 +46,9 @@ public class TextEditorFrame extends JFrame implements ActionListener {
         replace.addActionListener(this);
         edit.add(replace);
 
+        capitalize = new JMenuItem("Capitalize");
+        capitalize.addActionListener(this);
+        edit.add(capitalize);
 
         setTitle(filename);
         controller = new TextAreaController(textArea, filename);
@@ -113,6 +116,8 @@ public class TextEditorFrame extends JFrame implements ActionListener {
             if (option == JOptionPane.OK_OPTION) {
                 controller.replace(oldSequence.getText(), newSequence.getText());
             }
+        } else if (actionEvent.getSource() == capitalize) {
+            controller.capitalize(textArea.getText());
         }
     }
 
