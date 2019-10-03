@@ -9,6 +9,7 @@ public class TextEditorFrame extends JFrame implements ActionListener {
     private JTextArea textArea;
     private TextAreaController controller;
     private JMenuItem saveItem, removeAttributes, replace, capitalize;
+    private String oldVersionOfFile;
 
     private TextEditorFrame(String filename) {
         setSize(1000, 500);
@@ -53,6 +54,7 @@ public class TextEditorFrame extends JFrame implements ActionListener {
         setTitle(filename);
         controller = new TextAreaController(textArea, filename);
         controller.readFile();
+        oldVersionOfFile = textArea.getText();
 
         setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
 
@@ -64,6 +66,10 @@ public class TextEditorFrame extends JFrame implements ActionListener {
 
             @Override
             public void windowClosing(WindowEvent windowEvent) {
+                if (oldVersionOfFile.equals(textArea.getText())) {
+                    windowEvent.getComponent().setVisible(false);
+                    return;
+                }
                 int closing = JOptionPane.showConfirmDialog(windowEvent.getComponent(),
                         "Do you want to save the file?", "Exit", JOptionPane.YES_NO_CANCEL_OPTION);
                 if (closing == 0) {
