@@ -8,7 +8,7 @@ import java.util.TreeMap;
 public class TextEditorFrame extends JFrame implements ActionListener {
     private JTextArea textArea;
     private TextAreaController controller;
-    private JMenuItem saveItem, removeAttributes, replace, capitalize;
+    private JMenuItem saveItem, removeAttributes, replace, capitalize, help;
     private String oldVersionOfFile;
 
     private TextEditorFrame(String filename) {
@@ -31,8 +31,10 @@ public class TextEditorFrame extends JFrame implements ActionListener {
         JMenuBar menu = new JMenuBar();
         JMenu file = new JMenu("File");
         JMenu edit = new JMenu("Edit");
+        JMenu helpMenu = new JMenu("Help");
         menu.add(file);
         menu.add(edit);
+        menu.add(helpMenu);
         setJMenuBar(menu);
 
         saveItem = new JMenuItem("Save file");
@@ -50,6 +52,11 @@ public class TextEditorFrame extends JFrame implements ActionListener {
         capitalize = new JMenuItem("Capitalize");
         capitalize.addActionListener(this);
         edit.add(capitalize);
+
+        help = new JMenuItem("Help");
+        help.addActionListener(this);
+        helpMenu.add(help);
+
 
         setTitle(filename);
         controller = new TextAreaController(textArea, filename);
@@ -124,6 +131,11 @@ public class TextEditorFrame extends JFrame implements ActionListener {
             }
         } else if (actionEvent.getSource() == capitalize) {
             controller.capitalize(textArea.getText());
+        } else if (actionEvent.getSource() == help) {
+            JTextArea helpArea = new JTextArea();
+            helpArea.setText("asdfasdfadfg");
+            helpArea.setEditable(false);
+            JOptionPane.showMessageDialog(this, helpArea, "Help", JOptionPane.PLAIN_MESSAGE);
         }
     }
 

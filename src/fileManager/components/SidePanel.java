@@ -86,7 +86,9 @@ public class SidePanel extends JPanel {
 
             @Override
             public void mousePressed(MouseEvent mouseEvent) {
-
+                String selectedValue = directoryList.getSelectedValue();
+                mainPanel.refreshSelectedFile(side, selectedValue);
+                fileList.setSelectedValue(null, false);
             }
 
             @Override
@@ -114,7 +116,9 @@ public class SidePanel extends JPanel {
 
             @Override
             public void mousePressed(MouseEvent mouseEvent) {
-
+                String selectedValue = directoryList.getSelectedValue();
+                mainPanel.refreshSelectedFile(side, selectedValue);
+                directoryList.setSelectedValue(null, false);
             }
 
             @Override
