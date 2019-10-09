@@ -14,10 +14,24 @@ public class RenameCommand implements Command {
         File file = new File(oldName);
         File newFile = new File(newName);
         if (newFile.exists()) {
-            JOptionPane.showMessageDialog(mainPanel, newFile.getAbsolutePath() + " already exists", "Error", JOptionPane.ERROR_MESSAGE);
-            return newFile.getAbsolutePath() + " already exists";
+            int input = JOptionPane.showConfirmDialog(mainPanel, newFile.getAbsolutePath() + " already exists." +
+                    "Do you want to overwrite it?", "Overwrite", JOptionPane.YES_NO_CANCEL_OPTION);
+            if (input == 0) {
+                if (file.renameTo(newFile)) {
+                    mainPanel.refreshSelectedFile("same", newFile.toString());
+                    return file.getAbsolutePath() + " was overwritten to " + newFile.getAbsolutePath();
+                } else {
+                    JOptionPane.showMessageDialog(mainPanel, "Unable to rename " + file.getAbsolutePath() + " to " +
+                            newFile.getAbsolutePath());
+                    return "Unable to rename " + file.getAbsolutePath() + " to " +
+                            newFile.getAbsolutePath();
+                }
+            } else {
+                return "Refused to overwrite " + file.getAbsolutePath() + " to " + newFile.getAbsolutePath();
+            }
         }
-        file.renameTo(new File(newName));
+        file.renameTo(newFile);
+        mainPanel.refreshSelectedFile("same", newFile.getName());
         return "Renamed " + oldName + " to " + newName;
     }
 
