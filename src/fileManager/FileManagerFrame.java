@@ -24,7 +24,7 @@ public class FileManagerFrame extends JFrame implements Runnable, ActionListener
         JMenu helpMenu = new JMenu("Help");
         menuBar.add(helpMenu);
 
-        help = new JMenuItem("help");
+        help = new JMenuItem("About");
         help.addActionListener(this);
         helpMenu.add(help);
 
@@ -36,10 +36,14 @@ public class FileManagerFrame extends JFrame implements Runnable, ActionListener
 
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() == help) {
-            JTextArea helpArea = new JTextArea();
-            helpArea.setText("asdfasdfadfg");
-            helpArea.setEditable(false);
-            JOptionPane.showMessageDialog(this, helpArea, "Help", JOptionPane.PLAIN_MESSAGE);
+            JTextArea text = new JTextArea("This is the program that helps manipulate files on your computer\n" +
+                    "This file manager can perform simple operations like creating, renaming, moving, deleting\n" +
+                    "and finding files and directories\n\n" +
+                    "In order to create, delete, rename or move the file or directory, choose the item in one\n" +
+                    "of the lists and press the corresponding button in the bottom\n\n" +
+                    "Developed by Oleksii Leonov");
+            text.setEditable(false);
+            JOptionPane.showMessageDialog(this, text, "Help", JOptionPane.PLAIN_MESSAGE);
         }
     }
 

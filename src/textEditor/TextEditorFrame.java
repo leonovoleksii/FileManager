@@ -8,6 +8,7 @@ import java.util.TreeMap;
 
 public class TextEditorFrame extends JFrame implements ActionListener {
     private JTextComponent textComponent;
+    private JScrollPane scrollPane;
     private TextAreaController controller;
     private JMenuItem saveItem, removeAttributes, replace, capitalize, help;
     private String oldVersionOfFile;
@@ -25,7 +26,7 @@ public class TextEditorFrame extends JFrame implements ActionListener {
         constraints.gridx = 0;
         constraints.gridy = 0;
         textComponent = new JEditorPane();
-        JScrollPane scrollPane = new JScrollPane(textComponent);
+        scrollPane = new JScrollPane(textComponent);
         gridBagLayout.setConstraints(scrollPane, constraints);
         add(scrollPane);
 
@@ -135,7 +136,11 @@ public class TextEditorFrame extends JFrame implements ActionListener {
             controller.capitalize(textComponent.getText());
         } else if (actionEvent.getSource() == help) {
             JTextArea helpArea = new JTextArea();
-            helpArea.setText("asdfasdfadfg");
+            String text = "File > Save - saves the file\n" +
+                    "Edit > Remove html attributes - removes all attributes from html code except 'src' and 'href'\n" +
+                    "Edit > Replace - replaces one sequence in the text with another\n" +
+                    "Edit > Capitalize - capitalizes first characters in the sentences";
+            helpArea.setText(text);
             helpArea.setEditable(false);
             JOptionPane.showMessageDialog(this, helpArea, "Help", JOptionPane.PLAIN_MESSAGE);
         }
