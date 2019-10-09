@@ -6,16 +6,16 @@ public class Capitalizer {
         if (s.length() > 0) {
             sb.append(Character.toUpperCase(s.charAt(0)));
         }
-        boolean foundTheEndOfLine = false;
+        boolean foundTheEndOfSentence = false;
         for (int i = 1; i < s.length(); i++) {
-            if (foundTheEndOfLine && !Character.isSpaceChar(s.charAt(i))) {
+            if (foundTheEndOfSentence && !Character.isWhitespace(s.charAt(i))) {
                 sb.append(Character.toUpperCase(s.charAt(i)));
-                foundTheEndOfLine = false;
+                foundTheEndOfSentence = false;
             } else {
                 sb.append(s.charAt(i));
             }
             if (s.charAt(i) == '.') {
-                foundTheEndOfLine = true;
+                foundTheEndOfSentence = true;
             }
         }
         return sb.toString();
