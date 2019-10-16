@@ -170,10 +170,8 @@ public class SidePanel extends JPanel {
         dirs.sort(String.CASE_INSENSITIVE_ORDER);
         files.sort(String.CASE_INSENSITIVE_ORDER);
 
-        String[] typeArr = new String[1];
-        this.directoryList.setListData(dirs.toArray(typeArr));
-        typeArr = new String[1];
-        this.fileList.setListData(files.toArray(typeArr));
+        this.directoryList.setListData(dirs.toArray(new String[0]));
+        this.fileList.setListData(files.toArray(new String[0]));
     }
 
     public String getActiveDirectory() {
