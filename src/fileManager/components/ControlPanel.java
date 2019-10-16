@@ -30,7 +30,7 @@ public class ControlPanel extends JPanel {
         commands.add(new DeleteCommand());
         commands.add(new FindCommand());
         commands.add(new MoveCommand());
-
+        commands.add(new CopyCommand());
 
         for (Command command : commands) {
             addCommandButton(mainPanel, command);

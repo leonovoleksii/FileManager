@@ -198,4 +198,8 @@ public class SidePanel extends JPanel {
             }
         }
     }
+
+    public void setActiveDirectory(String dir) {
+        activeDirectory = dir;
+    }
 }

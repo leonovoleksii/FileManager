@@ -97,6 +97,14 @@ public class MainPanel extends JPanel {
         return (side == RIGHT ? rightPanel.getActiveDirectory() : leftPanel.getActiveDirectory());
     }
 
+    public void setActiveDirectory(String dir) {
+        if (side == RIGHT) {
+            rightPanel.setActiveDirectory(dir);
+        } else {
+            leftPanel.setActiveDirectory(dir);
+        }
+    }
+
     public void openDirectoryWithFile(String file) {
         File tempFile = new File(file);
         if (side == RIGHT) {

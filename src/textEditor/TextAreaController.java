@@ -2,6 +2,8 @@ package textEditor;
 
 import javax.swing.text.JTextComponent;
 import java.io.*;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class TextAreaController {
     String filename;
@@ -45,7 +47,8 @@ public class TextAreaController {
 
     public void replace(String oldSequence, String newSequence) {
         String text = textArea.getText();
-        text = text.replaceAll(oldSequence, newSequence);
+        Matcher matcher = Pattern.compile(oldSequence, Pattern.LITERAL).matcher(text);
+        text = matcher.replaceAll(newSequence);
         textArea.setText(text);
     }
 
