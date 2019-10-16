@@ -149,6 +149,7 @@ public class SidePanel extends JPanel {
     }
 
     public void refresh(){
+        checkActiveDirectory();
         File dir = new File(activeDirectory);
         activeDirectoryField.setText(activeDirectory);
         ArrayList<String> dirs = new ArrayList<>(), files = new ArrayList<>();
@@ -197,6 +198,13 @@ public class SidePanel extends JPanel {
                 return;
             }
         }
+    }
+
+    private void checkActiveDirectory() {
+        File curDir = new File(activeDirectory);
+        while (!curDir.exists())
+            curDir = curDir.getParentFile();
+        activeDirectory = curDir.getAbsolutePath();
     }
 
     public void setActiveDirectory(String dir) {
