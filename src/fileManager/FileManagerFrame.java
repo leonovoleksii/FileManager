@@ -13,6 +13,9 @@ public class FileManagerFrame extends JFrame implements Runnable, ActionListener
 
     private JMenuItem help;
 
+    private final int  START_WIDTH = 1000,
+                      START_HEIGHT = 500;
+
     public static FileManagerFrame getInstance() {
         return INSTANCE;
     }
@@ -29,7 +32,7 @@ public class FileManagerFrame extends JFrame implements Runnable, ActionListener
         help.addActionListener(this);
         helpMenu.add(help);
 
-        setMinimumSize(new Dimension(1000, 500));
+        setMinimumSize(new Dimension(START_WIDTH, START_HEIGHT));
         setLocationRelativeTo(null);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setVisible(true);
