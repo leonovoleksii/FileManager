@@ -3,6 +3,7 @@ package textEditor;
 import org.jsoup.*;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
+import org.jsoup.nodes.TextNode;
 
 public class HTMLSimplifier {
     public String simplify(String text) {

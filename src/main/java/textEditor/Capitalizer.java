@@ -1,5 +1,7 @@
 package textEditor;
 
+import org.jsoup.Jsoup;
+
 public class Capitalizer {
     public String capitalize(String s) {
         StringBuilder sb = new StringBuilder();
