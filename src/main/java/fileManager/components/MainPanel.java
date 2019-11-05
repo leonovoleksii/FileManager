@@ -1,5 +1,6 @@
 package fileManager.components;
 
+import tables.visualizers.TableFrame;
 import textEditor.TextEditorFrame;
 
 import javax.swing.*;
@@ -58,6 +59,9 @@ public class MainPanel extends JPanel {
                     if (!file.isDirectory()) {
                         TextEditorFrame.newInstance(selectedFile);
                     }
+                } else if (keyEvent.getKeyCode() == KeyEvent.VK_F2) {
+                    File file = new File(selectedFile);
+                    openTables(file);
                 }
             }
 
@@ -67,6 +71,18 @@ public class MainPanel extends JPanel {
             }
         });
 
+    }
+
+    private void openTables(File file) {
+        if (!file.getName().endsWith(".myxsl")) {
+            JOptionPane.showMessageDialog(this, "The file extension must be \".myxsl\"!", "Error",  JOptionPane.ERROR_MESSAGE);
+            return;
+        } else {
+            TableFrame tableFrame = new TableFrame(file.getAbsolutePath());
+            tableFrame.setSize(1000, 600);
+            tableFrame.setLocationRelativeTo(this);
+            tableFrame.setVisible(true);
+        }
     }
 
     public MainPanel() {
