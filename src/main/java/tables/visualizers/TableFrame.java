@@ -13,8 +13,19 @@ public class TableFrame extends JFrame implements Serializable {
     private Table table;
     private ControlPanel controlPanel;
     private String filename;
+    private static TreeMap<String, TableFrame> filenameToTableFrame = new TreeMap<>();
 
-    public TableFrame(String filename) {
+    public static TableFrame getTableFrame(String filename) {
+        if (filenameToTableFrame.containsKey(filename)) {
+            return filenameToTableFrame.get(filename);
+        } else {
+            TableFrame tableFrame = new TableFrame(filename);
+            filenameToTableFrame.put(filename, tableFrame);
+            return tableFrame;
+        }
+    }
+
+    private TableFrame(String filename) {
         setTitle(filename);
         this.filename = filename;
         try (BufferedReader bufferedReader = new BufferedReader(new FileReader(filename))) {
@@ -84,6 +95,7 @@ public class TableFrame extends JFrame implements Serializable {
                 } else if (closing == 1) {
                     windowEvent.getComponent().setVisible(false);
                 }
+                TableFrame.filenameToTableFrame.remove(filename);
             }
 
             @Override
@@ -111,6 +123,8 @@ public class TableFrame extends JFrame implements Serializable {
 
             }
         });
+
+        TableFrame.filenameToTableFrame.put(filename, this);
     }
 
     private void save() {

@@ -78,7 +78,7 @@ public class MainPanel extends JPanel {
             JOptionPane.showMessageDialog(this, "The file extension must be \".myxsl\"!", "Error",  JOptionPane.ERROR_MESSAGE);
             return;
         } else {
-            TableFrame tableFrame = new TableFrame(file.getAbsolutePath());
+            TableFrame tableFrame = TableFrame.getTableFrame(file.getAbsolutePath());
             tableFrame.setSize(1000, 600);
             tableFrame.setLocationRelativeTo(this);
             tableFrame.setVisible(true);
