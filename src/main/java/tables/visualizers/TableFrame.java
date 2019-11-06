@@ -1,19 +1,20 @@
 package tables.visualizers;
 
+import tables.processors.ClosingListener;
+import tables.processors.Saver;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.event.WindowEvent;
-import java.awt.event.WindowListener;
 import java.io.*;
 import java.util.TreeMap;
 
-public class TableFrame extends JFrame implements Serializable {
+public class TableFrame extends JFrame {
     private Table table;
     private ControlPanel controlPanel;
     private String filename;
     private static TreeMap<String, TableFrame> filenameToTableFrame = new TreeMap<>();
+    private Saver saver = new Saver();
 
     public static TableFrame getTableFrame(String filename) {
         if (filenameToTableFrame.containsKey(filename)) {
@@ -71,76 +72,30 @@ public class TableFrame extends JFrame implements Serializable {
         menuBar.add(fileMenu);
 
         JMenuItem saveFileMenu = new JMenuItem("Save file");
-        saveFileMenu.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent actionEvent) {
-                save();
-            }
+        saveFileMenu.addActionListener((ActionEvent e) -> {
+            saver.save(this);
         });
         fileMenu.add(saveFileMenu);
 
-        addWindowListener(new WindowListener() {
-            @Override
-            public void windowOpened(WindowEvent windowEvent) {
-
-            }
-
-            @Override
-            public void windowClosing(WindowEvent windowEvent) {
-                int closing = JOptionPane.showConfirmDialog(windowEvent.getComponent(),
-                        "Do you want to save the file?", "Exit", JOptionPane.YES_NO_CANCEL_OPTION);
-                if (closing == 0) {
-                    save();
-                    windowEvent.getComponent().setVisible(false);
-                } else if (closing == 1) {
-                    windowEvent.getComponent().setVisible(false);
-                }
-                TableFrame.filenameToTableFrame.remove(filename);
-            }
-
-            @Override
-            public void windowClosed(WindowEvent windowEvent) {
-
-            }
-
-            @Override
-            public void windowIconified(WindowEvent windowEvent) {
-
-            }
-
-            @Override
-            public void windowDeiconified(WindowEvent windowEvent) {
-
-            }
-
-            @Override
-            public void windowActivated(WindowEvent windowEvent) {
-
-            }
-
-            @Override
-            public void windowDeactivated(WindowEvent windowEvent) {
-
-            }
-        });
+        addWindowListener(new ClosingListener(this));
 
         TableFrame.filenameToTableFrame.put(filename, this);
     }
 
-    private void save() {
-        try (BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter(filename))) {
-            bufferedWriter.write(table.getRowAmount() + "\n");
-            bufferedWriter.write(table.getColumnAmount() + "\n");
-            TreeMap<String, String> nameToFormula = controlPanel.getNameToFormula();
-            bufferedWriter.write(nameToFormula.size() + "\n");
-            for (String formula : nameToFormula.keySet()) {
-                bufferedWriter.write(formula + "\n");
-                bufferedWriter.write(nameToFormula.get(formula) + "\n");
-            }
-            bufferedWriter.flush();
-        } catch (Exception e) {
+    public Table getTable() {
+        return table;
+    }
 
-        }
+    public ControlPanel getControlPanel() {
+        return controlPanel;
+    }
+
+    public String getFilename() {
+        return filename;
+    }
+
+    public void removeFilename() {
+        filenameToTableFrame.remove(filename);
     }
 
     public static void main(String[] args) {
