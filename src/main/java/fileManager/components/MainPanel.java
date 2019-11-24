@@ -1,5 +1,6 @@
 package fileManager.components;
 
+import databaseParser.form.ParserFrame;
 import tables.visualizers.TableFrame;
 import textEditor.TextEditorFrame;
 
@@ -8,6 +9,7 @@ import java.awt.*;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.io.File;
+import java.io.IOException;
 
 public class MainPanel extends JPanel {
     private static final boolean LEFT = true, RIGHT = false;
@@ -62,6 +64,15 @@ public class MainPanel extends JPanel {
                 } else if (keyEvent.getKeyCode() == KeyEvent.VK_F2) {
                     File file = new File(selectedFile);
                     openTables(file);
+                } else if (keyEvent.getKeyCode() == KeyEvent.VK_F1) {
+                    File file = new File(selectedFile);
+                    openStudentParser(file);
+                } else if (keyEvent.getKeyCode() == KeyEvent.VK_F4) {
+                    try {
+                        Runtime.getRuntime().exec("google-chrome " + selectedFile);
+                    } catch (IOException e) {
+                        System.err.println("Unable to open " + selectedFile + " in browser!");
+                    }
                 }
             }
 
@@ -80,8 +91,20 @@ public class MainPanel extends JPanel {
         } else {
             TableFrame tableFrame = TableFrame.getTableFrame(file.getAbsolutePath());
             tableFrame.setSize(1000, 600);
-            tableFrame.setLocationRelativeTo(this);
+            tableFrame.setLocationRelativeTo(null);
             tableFrame.setVisible(true);
+        }
+    }
+
+    private void openStudentParser(File file) {
+        if (!file.getName().endsWith(".xml")) {
+            JOptionPane.showMessageDialog(this, "The file extension must be \".xml\"!", "Error",  JOptionPane.ERROR_MESSAGE);
+            return;
+        } else {
+            ParserFrame parserFrame = new ParserFrame(file);
+            parserFrame.setSize(1000, 600);
+            parserFrame.setLocationRelativeTo(null);
+            parserFrame.setVisible(true);
         }
     }
 
