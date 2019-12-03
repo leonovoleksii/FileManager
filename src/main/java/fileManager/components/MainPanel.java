@@ -99,7 +99,6 @@ public class MainPanel extends JPanel {
     private void openStudentParser(File file) {
         if (!file.getName().endsWith(".xml")) {
             JOptionPane.showMessageDialog(this, "The file extension must be \".xml\"!", "Error",  JOptionPane.ERROR_MESSAGE);
-            return;
         } else {
             ParserFrame parserFrame = new ParserFrame(file);
             parserFrame.setSize(1000, 600);

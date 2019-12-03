@@ -82,9 +82,14 @@ public class ControlPanel extends JPanel {
         calculate.addActionListener((ActionEvent e) -> {
             if (selectedCellLabel.getText().equals("")) {
                 JOptionPane.showMessageDialog(table, "Select cell first");
-                return;
             } else {
-                nameToFormula.put(selectedCellLabel.getText(), formulaField.getText());
+                if (formulaField.getText().equals("")) {
+                    nameToFormula.remove(selectedCellLabel.getText());
+                    table.clearCell(selectedCellLabel.getText());
+                    System.err.println("cleared cell");
+                } else {
+                    nameToFormula.put(selectedCellLabel.getText(), formulaField.getText());
+                }
                 recalculate();
             }
         });

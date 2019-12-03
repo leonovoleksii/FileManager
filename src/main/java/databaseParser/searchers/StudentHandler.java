@@ -12,19 +12,14 @@ import java.util.List;
 public class StudentHandler extends DefaultHandler {
     private List<Student> students = new ArrayList<>();
     private StudentBuilder studentBuilder = new StudentBuilder();
-    private Student templateStudent;
     private String data;
 
-    public StudentHandler(Student templateStudent) {
-        this.templateStudent = templateStudent;
-    }
-
-    public List<Student> getStudents() {
+    List<Student> getStudents() {
         return students;
     }
 
     @Override
-    public void startElement(String uri, String localname, String qName, Attributes attributes) throws SAXException {
+    public void startElement(String uri, String localname, String qName, Attributes attributes) {
         switch (qName.toLowerCase()) {
             case "specialty":
                 studentBuilder.setSpecialty(attributes.getValue(0));
@@ -33,10 +28,11 @@ public class StudentHandler extends DefaultHandler {
                 studentBuilder.setGroupID(attributes.getValue(0));
                 break;
             case "student":
-                studentBuilder.setName(null);
-                studentBuilder.setSurname(null);
-                studentBuilder.setCity(null);
-                studentBuilder.setPhoneNumber(null);
+                studentBuilder
+                        .setName(null)
+                        .setSurname(null)
+                        .setCity(null)
+                        .setPhoneNumber(null);
                 break;
         }
     }

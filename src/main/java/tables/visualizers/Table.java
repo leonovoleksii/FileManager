@@ -203,4 +203,11 @@ public class Table extends JScrollPane {
     public int getRowAmount() {
         return rowAmount;
     }
+
+    public void clearCell(String cellName) {
+        int column = getColumnFromName(cellName);
+        int row = getRowFromName(cellName);
+        mainTable.setValueAt("", row, column);
+        System.out.println(mainTable.getValueAt(row, column));
+    }
 }

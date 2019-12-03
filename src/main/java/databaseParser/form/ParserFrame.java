@@ -15,6 +15,7 @@ public class ParserFrame extends JFrame {
         SearchInitializer searchInitializer = new SearchInitializer();
         searchInitializer.search(f);
         panel = new FormPanel(f, textArea, searchInitializer.getSpecialities(), searchInitializer.getGroups());
+        addWindowListener(new MyWindowListener(this));
         init();
     }
 
@@ -39,6 +40,8 @@ public class ParserFrame extends JFrame {
         gridBagConstraints.gridx = 1;
         gridBagLayout.setConstraints(panel, gridBagConstraints);
         add(panel);
+
+        setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
     }
 
 }

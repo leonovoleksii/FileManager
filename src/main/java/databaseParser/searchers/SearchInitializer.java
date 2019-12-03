@@ -2,7 +2,6 @@ package databaseParser.searchers;
 
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
-import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
 
@@ -14,7 +13,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class SearchInitializer {
-    List<String> specialities = new ArrayList<>(), groups = new ArrayList<>();
+    private List<String> specialities = new ArrayList<>(), groups = new ArrayList<>();
     public void search(File file) {
         Document document;
         try {

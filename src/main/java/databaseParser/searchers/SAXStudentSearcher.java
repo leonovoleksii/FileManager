@@ -19,7 +19,7 @@ public class SAXStudentSearcher implements StudentSearcher {
         List<Student> result = new ArrayList<>();
         try {
             SAXParser saxParser = saxParserFactory.newSAXParser();
-            handler = new StudentHandler(student);
+            handler = new StudentHandler();
             saxParser.parse(file, handler);
             for (Student s : handler.getStudents()) {
                 if (s.similarTo(student)) {

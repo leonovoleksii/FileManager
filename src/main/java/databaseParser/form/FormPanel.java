@@ -16,6 +16,7 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.io.File;
 import java.io.FileOutputStream;
+import java.io.IOException;
 import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.Collection;
@@ -27,7 +28,6 @@ public class FormPanel extends JPanel {
     private JTextField name, surname, phone, city;
     private JButton clearButton = new JButton("Clear"), searchButton = new JButton("Search"),
                     generateHTMLButton = new JButton("Generate HTML");
-    private List<Student> students = new ArrayList<>();
 
 
     public FormPanel(File file, JTextArea textArea, Collection<String> specialitiesSet, Collection<String> groupIDsSet) {
@@ -69,7 +69,7 @@ public class FormPanel extends JPanel {
                 studentSearcher = new SAXStudentSearcher();
             }
 
-            students = studentSearcher.search(file, studentBuilder.build());
+            List<Student> students = studentSearcher.search(file, studentBuilder.build());
 
             for (Student s : students) {
                 textArea.append(s.toString() + "\n");
@@ -88,13 +88,14 @@ public class FormPanel extends JPanel {
             } catch (Exception exc) {
                 System.err.println("Unable to generate HTML file!");
             }
+            try {
+                Runtime.getRuntime().exec("google-chrome " + outputFilename);
+            } catch (IOException exc) {
+                System.err.println("Unable to open html file in Google Chrome!");
+            }
         });
 
         init();
-    }
-
-    public List<Student> getStudents() {
-        return students;
     }
 
     private void init() {

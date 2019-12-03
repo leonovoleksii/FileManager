@@ -8,28 +8,34 @@ public class StudentBuilder {
     private String phoneNumber;
     private String city;
 
-    public void setSpecialty(String specialty) {
+    public StudentBuilder setSpecialty(String specialty) {
         this.specialty = specialty;
+        return this;
     }
 
-    public void setGroupID(String groupID) {
+    public StudentBuilder setGroupID(String groupID) {
         this.groupID = groupID;
+        return this;
     }
 
-    public void setName(String name) {
+    public StudentBuilder setName(String name) {
         this.name = name;
+        return this;
     }
 
-    public void setSurname(String surname) {
+    public StudentBuilder setSurname(String surname) {
         this.surname = surname;
+        return this;
     }
 
-    public void setPhoneNumber(String phoneNumber) {
+    public StudentBuilder setPhoneNumber(String phoneNumber) {
         this.phoneNumber = phoneNumber;
+        return this;
     }
 
-    public void setCity(String city) {
+    public StudentBuilder setCity(String city) {
         this.city = city;
+        return this;
     }
 
     public Student build() {

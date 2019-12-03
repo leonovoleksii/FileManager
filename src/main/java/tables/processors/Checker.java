@@ -1,15 +1,15 @@
 package tables.processors;
 
-import gen.calculatorLexer;
-import gen.calculatorParser;
+import gen.CalculatorLexer;
+import gen.CalculatorParser;
 import org.antlr.v4.runtime.CharStreams;
 import org.antlr.v4.runtime.CommonTokenStream;
 
 public class Checker {
     public static boolean check(String s) {
-        calculatorLexer lexer = new calculatorLexer(CharStreams.fromString(s));
+        CalculatorLexer lexer = new CalculatorLexer(CharStreams.fromString(s));
         CommonTokenStream tokens = new CommonTokenStream(lexer);
-        calculatorParser parser = new calculatorParser(tokens);
+        CalculatorParser parser = new CalculatorParser(tokens);
         parser.removeErrorListeners();
         parser.addErrorListener(new MyErrorListener());
         try {
