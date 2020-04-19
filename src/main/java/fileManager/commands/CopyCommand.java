@@ -2,10 +2,10 @@ package fileManager.commands;
 
 import fileManager.components.MainPanel;
 import fileManager.components.ProtocolCreator;
+import org.apache.commons.io.FileUtils;
 
 import javax.swing.*;
 import java.io.*;
-import org.apache.commons.io.FileUtils;
 
 public class CopyCommand implements Command {
     public void execute(MainPanel mainPanel) {
